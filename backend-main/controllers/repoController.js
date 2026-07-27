@@ -4,27 +4,34 @@ const User = require("../models/userModel");
 const Issue = require("../models/issueModel");
 
 async function createRepository(req, res) {
-  const { owner, name, issues, content, description, visibility } = req.body;
+  const { owner, name, issues = [], content = [], description, visibility } = req.body;
 
   try {
     if (!name) {
       return res.status(400).json({ error: "Repository name is required!" });
     }
 
-    if (!mongoose.Types.ObjectId.isValid(owner)) {
+    if (!owner || !mongoose.Types.ObjectId.isValid(owner)) {
       return res.status(400).json({ error: "Invalid User ID!" });
     }
 
     const newRepository = new Repository({
       name,
       description,
-      visibility,
+      visibility: visibility !== undefined ? visibility : true,
       owner,
       content,
       issues,
     });
 
     const result = await newRepository.save();
+
+    // Optionally sync with User document if owner exists in Mongoose User collection
+    try {
+      await User.findByIdAndUpdate(owner, { $push: { repositories: result._id } });
+    } catch (e) {
+      console.log("Owner sync skipped or owner in native collection:", e.message);
+    }
 
     res.status(201).json({
       message: "Repository created!",
@@ -51,10 +58,18 @@ async function getAllRepositories(req, res) {
 
 async function fetchRepositoryById(req, res) {
   const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid Repository ID!" });
+  }
+
   try {
-    const repository = await Repository.find({ _id: id })
+    const repository = await Repository.findById(id)
       .populate("owner")
       .populate("issues");
+
+    if (!repository) {
+      return res.status(404).json({ error: "Repository not found!" });
+    }
 
     res.json(repository);
   } catch (err) {
@@ -70,6 +85,10 @@ async function fetchRepositoryByName(req, res) {
       .populate("owner")
       .populate("issues");
 
+    if (!repository || repository.length === 0) {
+      return res.status(404).json({ error: "Repository not found!" });
+    }
+
     res.json(repository);
   } catch (err) {
     console.error("Error during fetching repository : ", err.message);
@@ -78,16 +97,18 @@ async function fetchRepositoryByName(req, res) {
 }
 
 async function fetchRepositoriesForCurrentUser(req, res) {
-  console.log(req.params);
   const { userID } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userID)) {
+    return res.status(400).json({ error: "Invalid User ID format!" });
+  }
 
   try {
     const repositories = await Repository.find({ owner: userID });
 
-    if (!repositories || repositories.length == 0) {
+    if (!repositories) {
       return res.status(404).json({ error: "User Repositories not found!" });
     }
-    console.log(repositories);
     res.json({ message: "Repositories found!", repositories });
   } catch (err) {
     console.error("Error during fetching user repositories : ", err.message);
@@ -99,14 +120,22 @@ async function updateRepositoryById(req, res) {
   const { id } = req.params;
   const { content, description } = req.body;
 
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid Repository ID!" });
+  }
+
   try {
     const repository = await Repository.findById(id);
     if (!repository) {
       return res.status(404).json({ error: "Repository not found!" });
     }
 
-    repository.content.push(content);
-    repository.description = description;
+    if (content !== undefined) {
+      repository.content.push(content);
+    }
+    if (description !== undefined) {
+      repository.description = description;
+    }
 
     const updatedRepository = await repository.save();
 
@@ -122,6 +151,10 @@ async function updateRepositoryById(req, res) {
 
 async function toggleVisibilityById(req, res) {
   const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid Repository ID!" });
+  }
 
   try {
     const repository = await Repository.findById(id);
@@ -145,6 +178,11 @@ async function toggleVisibilityById(req, res) {
 
 async function deleteRepositoryById(req, res) {
   const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid Repository ID!" });
+  }
+
   try {
     const repository = await Repository.findByIdAndDelete(id);
     if (!repository) {
