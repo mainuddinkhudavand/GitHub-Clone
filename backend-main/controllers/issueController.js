@@ -4,17 +4,30 @@ const User = require("../models/userModel");
 const Issue = require("../models/issueModel");
 
 async function createIssue(req, res) {
-  const { title, description } = req.body;
-  const { id } = req.params;
+  const { title, description, repository } = req.body;
+  const targetRepoId = req.params.id || repository;
+
+  if (!title || !description) {
+    return res.status(400).json({ error: "Title and description are required!" });
+  }
+
+  if (!targetRepoId || !mongoose.Types.ObjectId.isValid(targetRepoId)) {
+    return res.status(400).json({ error: "Valid Repository ID is required!" });
+  }
 
   try {
     const issue = new Issue({
       title,
       description,
-      repository: id,
+      repository: targetRepoId,
     });
 
     await issue.save();
+
+    // Sync issue to repository document
+    await Repository.findByIdAndUpdate(targetRepoId, {
+      $push: { issues: issue._id },
+    });
 
     res.status(201).json(issue);
   } catch (err) {
@@ -26,6 +39,11 @@ async function createIssue(req, res) {
 async function updateIssueById(req, res) {
   const { id } = req.params;
   const { title, description, status } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid Issue ID!" });
+  }
+
   try {
     const issue = await Issue.findById(id);
 
@@ -33,13 +51,13 @@ async function updateIssueById(req, res) {
       return res.status(404).json({ error: "Issue not found!" });
     }
 
-    issue.title = title;
-    issue.description = description;
-    issue.status = status;
+    if (title !== undefined) issue.title = title;
+    if (description !== undefined) issue.description = description;
+    if (status !== undefined) issue.status = status;
 
     await issue.save();
 
-    res.json(issue, { message: "Issue updated" });
+    res.json({ message: "Issue updated", issue });
   } catch (err) {
     console.error("Error during issue updation : ", err.message);
     res.status(500).send("Server error");
@@ -49,8 +67,12 @@ async function updateIssueById(req, res) {
 async function deleteIssueById(req, res) {
   const { id } = req.params;
 
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid Issue ID!" });
+  }
+
   try {
-    const issue = Issue.findByIdAndDelete(id);
+    const issue = await Issue.findByIdAndDelete(id);
 
     if (!issue) {
       return res.status(404).json({ error: "Issue not found!" });
@@ -66,11 +88,9 @@ async function getAllIssues(req, res) {
   const { id } = req.params;
 
   try {
-    const issues = Issue.find({ repository: id });
+    const query = id && mongoose.Types.ObjectId.isValid(id) ? { repository: id } : {};
+    const issues = await Issue.find(query).populate("repository");
 
-    if (!issues) {
-      return res.status(404).json({ error: "Issues not found!" });
-    }
     res.status(200).json(issues);
   } catch (err) {
     console.error("Error during issue fetching : ", err.message);
@@ -80,8 +100,13 @@ async function getAllIssues(req, res) {
 
 async function getIssueById(req, res) {
   const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid Issue ID!" });
+  }
+
   try {
-    const issue = await Issue.findById(id);
+    const issue = await Issue.findById(id).populate("repository");
 
     if (!issue) {
       return res.status(404).json({ error: "Issue not found!" });
@@ -89,7 +114,7 @@ async function getIssueById(req, res) {
 
     res.json(issue);
   } catch (err) {
-    console.error("Error during issue updation : ", err.message);
+    console.error("Error during issue fetching : ", err.message);
     res.status(500).send("Server error");
   }
 }
