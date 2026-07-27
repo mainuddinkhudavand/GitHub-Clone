@@ -1,28 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./navbar.css";
+import logo from "../assets/github-mark-white.svg";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
-    <nav>
-      <Link to="/">
-        <div>
-          <img
-            src="https://www.github.com/images/modules/logos_page/GitHub-Mark.png"
-            alt="GitHub Logo"
-          />
-          <h3>GitHub</h3>
+    <header className="navbar-header">
+      <div className="navbar-container">
+        <div className="navbar-brand" onClick={() => navigate("/")}>
+          <img src={logo} alt="GitHub Logo" className="navbar-logo" />
+          <span className="navbar-title">GitHub Clone</span>
         </div>
-      </Link>
-      <div>
-        <Link to="/create">
-          <p>Create a Repository</p>
-        </Link>
-        <Link to="/profile">
-          <p>Profile</p>
-        </Link>
+
+        <nav className="navbar-links">
+          <Link to="/" className="nav-link">Dashboard</Link>
+          <Link to="/create" className="nav-link nav-btn">+ Create Repository</Link>
+          <Link to="/profile" className="nav-link">Profile</Link>
+        </nav>
       </div>
-    </nav>
+    </header>
   );
 };
 

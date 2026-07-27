@@ -1,30 +1,68 @@
-nav {
+.navbar-header {
+  width: 100%;
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 12px 24px;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 10px;
-  border-bottom: 2px solid white;
+  align-items: center;
+  box-sizing: border-box;
 }
 
-nav img {
-  height: 50px;
-  border-radius: 100%;
-}
-nav div {
+.navbar-brand {
   display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
 }
 
-nav h3 {
-  margin-left: 15px;
-  color: white;
+.navbar-logo {
+  width: 32px;
+  height: 32px;
 }
 
-nav p {
-  margin-left: 50px;
-  font-weight: bold;
-  color: white;
+.navbar-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #f0f6fc;
 }
 
-nav h3:hover,
-nav p:hover {
-  text-decoration: underline;
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  color: #c9d1d9;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.nav-btn {
+  background-color: #238636;
+  color: #ffffff !important;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.nav-btn:hover {
+  background-color: #2ea043;
 }
