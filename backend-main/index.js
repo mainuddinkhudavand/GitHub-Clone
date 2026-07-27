@@ -19,57 +19,11 @@ const { revertRepo } = require("./controllers/revert");
 
 dotenv.config();
 
-yargs(hideBin(process.argv))
-  .command("start", "Starts a new server", {}, startServer)
-  .command("init", "Initialise a new repository", {}, initRepo)
-  .command(
-    "add <file>",
-    "Add a file to the repository",
-    (yargs) => {
-      yargs.positional("file", {
-        describe: "File to add to the staging area",
-        type: "string",
-      });
-    },
-    (argv) => {
-      addRepo(argv.file);
-    }
-  )
-  .command(
-    "commit <message>",
-    "Commit the staged files",
-    (yargs) => {
-      yargs.positional("message", {
-        describe: "Commit message",
-        type: "string",
-      });
-    },
-    (argv) => {
-      commitRepo(argv.message);
-    }
-  )
-  .command("push", "Push commits to S3", {}, pushRepo)
-  .command("pull", "Pull commits from S3", {}, pullRepo)
-  .command(
-    "revert <commitID>",
-    "Revert to a specific commit",
-    (yargs) => {
-      yargs.positional("commitID", {
-        describe: "Comit ID to revert to",
-        type: "string",
-      });
-    },
-    (argv) => {
-      revertRepo(argv.commitID);
-    }
-  )
-  .demandCommand(1, "You need at least one command")
-  .help().argv;
-
 function startServer() {
   const app = express();
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 3002;
 
+  app.use(cors({ origin: "*" }));
   app.use(bodyParser.json());
   app.use(express.json());
 
@@ -79,8 +33,6 @@ function startServer() {
     .connect(mongoURI)
     .then(() => console.log("MongoDB connected!"))
     .catch((err) => console.error("Unable to connect : ", err));
-
-  app.use(cors({ origin: "*" }));
 
   app.use("/", mainRouter);
 
@@ -107,10 +59,62 @@ function startServer() {
 
   db.once("open", async () => {
     console.log("CRUD operations called");
-    // CRUD operations
   });
 
   httpServer.listen(port, () => {
     console.log(`Server is running on PORT ${port}`);
   });
+}
+
+// Check if run directly without subcommands
+const argv = hideBin(process.argv);
+if (argv.length === 0) {
+  startServer();
+} else {
+  yargs(argv)
+    .command("start", "Starts a new server", {}, startServer)
+    .command("init", "Initialise a new repository", {}, initRepo)
+    .command(
+      "add <file>",
+      "Add a file to the repository",
+      (yargs) => {
+        yargs.positional("file", {
+          describe: "File to add to the staging area",
+          type: "string",
+        });
+      },
+      (argv) => {
+        addRepo(argv.file);
+      }
+    )
+    .command(
+      "commit <message>",
+      "Commit the staged files",
+      (yargs) => {
+        yargs.positional("message", {
+          describe: "Commit message",
+          type: "string",
+        });
+      },
+      (argv) => {
+        commitRepo(argv.message);
+      }
+    )
+    .command("push", "Push commits to S3", {}, pushRepo)
+    .command("pull", "Pull commits from S3", {}, pullRepo)
+    .command(
+      "revert <commitID>",
+      "Revert to a specific commit",
+      (yargs) => {
+        yargs.positional("commitID", {
+          describe: "Commit ID to revert to",
+          type: "string",
+        });
+      },
+      (argv) => {
+        revertRepo(argv.commitID);
+      }
+    )
+    .demandCommand(1, "You need at least one command")
+    .help().argv;
 }
