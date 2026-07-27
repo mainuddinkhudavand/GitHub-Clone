@@ -40,7 +40,7 @@ const Login = () => {
       window.location.href = "/";
     } catch (err) {
       console.error(err);
-      alert("Login Failed!");
+      alert(err.response?.data?.message || "Login Failed!");
       setLoading(false);
     }
   };
