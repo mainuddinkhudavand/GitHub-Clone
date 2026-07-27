@@ -10,7 +10,7 @@ import { useAuth } from "../../authContext";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [userDetails, setUserDetails] = useState({ username: "username" });
+  const [userDetails, setUserDetails] = useState({ username: "User" });
   const { setCurrentUser } = useAuth();
 
   useEffect(() => {
@@ -22,7 +22,9 @@ const Profile = () => {
           const response = await axios.get(
             `http://localhost:3002/userProfile/${userId}`
           );
-          setUserDetails(response.data);
+          if (response.data && response.data.username) {
+            setUserDetails(response.data);
+          }
         } catch (err) {
           console.error("Cannot fetch user details: ", err);
         }
@@ -37,10 +39,12 @@ const Profile = () => {
       <UnderlineNav aria-label="Repository">
         <UnderlineNav.Item
           aria-current="page"
+          onClick={() => navigate("/")}
           icon={BookIcon}
           sx={{
             backgroundColor: "transparent",
             color: "white",
+            cursor: "pointer",
             "&:hover": {
               textDecoration: "underline",
               color: "white",
@@ -51,18 +55,19 @@ const Profile = () => {
         </UnderlineNav.Item>
 
         <UnderlineNav.Item
-          onClick={() => navigate("/repo")}
+          onClick={() => navigate("/")}
           icon={RepoIcon}
           sx={{
             backgroundColor: "transparent",
             color: "whitesmoke",
+            cursor: "pointer",
             "&:hover": {
               textDecoration: "underline",
               color: "white",
             },
           }}
         >
-          Starred Repositories
+          Repositories
         </UnderlineNav.Item>
       </UnderlineNav>
 
@@ -71,10 +76,9 @@ const Profile = () => {
           localStorage.removeItem("token");
           localStorage.removeItem("userId");
           setCurrentUser(null);
-
           window.location.href = "/auth";
         }}
-        style={{ position: "fixed", bottom: "50px", right: "50px" }}
+        style={{ position: "fixed", bottom: "50px", right: "50px", cursor: "pointer" }}
         id="logout"
       >
         Logout
@@ -86,12 +90,13 @@ const Profile = () => {
 
           <div className="name">
             <h3>{userDetails.username}</h3>
+            {userDetails.email && <p style={{ color: "#8b949e", fontSize: "14px" }}>{userDetails.email}</p>}
           </div>
 
           <button className="follow-btn">Follow</button>
 
           <div className="follower">
-            <p>10 Follower</p>
+            <p>10 Followers</p>
             <p>3 Following</p>
           </div>
         </div>

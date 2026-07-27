@@ -1,0 +1,83 @@
+.create-repo-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  color: #c9d1d9;
+}
+
+.create-repo-container h2 {
+  color: #f0f6fc;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #8b949e;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.create-repo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group .label {
+  font-weight: 600;
+  color: #c9d1d9;
+}
+
+.form-group .input {
+  background-color: #010409;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 10px 14px;
+  color: #f0f6fc;
+  font-size: 14px;
+}
+
+.form-group .input:focus {
+  outline: none;
+  border-color: #58a6ff;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background-color: #238636;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.submit-btn:hover {
+  background-color: #2ea043;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
