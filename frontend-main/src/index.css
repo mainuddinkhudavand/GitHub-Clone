@@ -1,16 +1,24 @@
+:root {
+  --color-canvas-default: #0d1117;
+  --color-canvas-subtle: #161b22;
+  --color-canvas-overlay: #161b22;
+  --color-border-default: #30363d;
+  --color-border-muted: #21262d;
+  --color-fg-default: #c9d1d9;
+  --color-fg-muted: #8b949e;
+  --color-accent-fg: #58a6ff;
+  --color-success-fg: #3fb950;
+  --color-btn-primary-bg: #238636;
+  --color-btn-primary-hover: #2ea043;
+  --color-btn-bg: #21262d;
+  --color-btn-hover: #30363d;
+  --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-:root {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: dark;
-  color: #c9d1d9;
-  background-color: #0d1117;
 }
 
 html, body {
@@ -18,9 +26,11 @@ html, body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background-color: #0d1117;
-  color: #c9d1d9;
+  background-color: var(--color-canvas-default);
+  color: var(--color-fg-default);
+  font-family: var(--font-stack);
   font-size: 14px;
+  line-height: 1.5;
 }
 
 #root {
@@ -31,7 +41,7 @@ html, body {
 }
 
 a {
-  color: #58a6ff;
+  color: var(--color-accent-fg);
   text-decoration: none;
 }
 
@@ -43,4 +53,23 @@ button {
   font-family: inherit;
   font-size: 14px;
   cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-default);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+/* GitHub Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-canvas-default);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-default);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-fg-muted);
 }
