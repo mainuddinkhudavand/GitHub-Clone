@@ -19,7 +19,7 @@ const { revertRepo } = require("./controllers/revert");
 
 dotenv.config();
 
-function startServer() {
+async function startServer() {
   const app = express();
   const port = process.env.PORT || 3002;
 
@@ -27,12 +27,35 @@ function startServer() {
   app.use(bodyParser.json());
   app.use(express.json());
 
-  const mongoURI = process.env.MONGODB_URI;
+  let mongoURI = process.env.MONGODB_URI;
+
+  if (!mongoURI || mongoURI.startsWith("memory") || mongoURI.includes("your_mongodb_connection_string_here")) {
+    try {
+      const { MongoMemoryServer } = require("mongodb-memory-server");
+      const mongoServer = await MongoMemoryServer.create();
+      mongoURI = mongoServer.getUri();
+      console.log("Using temporary in-memory MongoDB instance at:", mongoURI);
+    } catch (e) {
+      // Fall back to env mongoURI
+    }
+  }
 
   mongoose
     .connect(mongoURI)
-    .then(() => console.log("MongoDB connected!"))
-    .catch((err) => console.error("Unable to connect : ", err));
+    .then(() => console.log("MongoDB connected successfully!"))
+    .catch(async (err) => {
+      console.error("Unable to connect to primary MONGODB_URI:", err.message);
+      try {
+        const { MongoMemoryServer } = require("mongodb-memory-server");
+        console.log("Starting temporary in-memory MongoDB fallback server...");
+        const mongoServer = await MongoMemoryServer.create();
+        const fallbackURI = mongoServer.getUri();
+        await mongoose.connect(fallbackURI);
+        console.log("MongoDB connected successfully to temporary in-memory server at:", fallbackURI);
+      } catch (fallbackErr) {
+        console.error("Fallback error:", fallbackErr.message);
+      }
+    });
 
   app.use("/", mainRouter);
 

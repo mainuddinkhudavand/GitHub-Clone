@@ -134,7 +134,7 @@ async function getUserProfile(req, res) {
 
 async function updateUserProfile(req, res) {
   const currentID = req.params.id;
-  const { email, password } = req.body;
+  const { username, name, email, password, avatarUrl, bio, company, location, website, twitter, themePreference } = req.body;
 
   if (!ObjectId.isValid(currentID)) {
     return res.status(400).json({ message: "Invalid user ID format!" });
@@ -145,8 +145,28 @@ async function updateUserProfile(req, res) {
     const db = client.db();
     const usersCollection = db.collection("users");
 
+    if (username) {
+      const existingUser = await usersCollection.findOne({
+        username,
+        _id: { $ne: new ObjectId(currentID) },
+      });
+      if (existingUser) {
+        return res.status(400).json({ message: "Username is already taken!" });
+      }
+    }
+
     let updateFields = {};
-    if (email) updateFields.email = email;
+    if (username !== undefined) updateFields.username = username;
+    if (name !== undefined) updateFields.name = name;
+    if (email !== undefined) updateFields.email = email;
+    if (avatarUrl !== undefined) updateFields.avatarUrl = avatarUrl;
+    if (bio !== undefined) updateFields.bio = bio;
+    if (company !== undefined) updateFields.company = company;
+    if (location !== undefined) updateFields.location = location;
+    if (website !== undefined) updateFields.website = website;
+    if (twitter !== undefined) updateFields.twitter = twitter;
+    if (themePreference !== undefined) updateFields.themePreference = themePreference;
+
     if (password) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);

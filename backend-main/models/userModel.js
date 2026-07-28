@@ -16,6 +16,38 @@ const UserSchema = new Schema(
     password: {
       type: String,
     },
+    name: {
+      type: String,
+      default: "",
+    },
+    avatarUrl: {
+      type: String,
+      default: "",
+    },
+    bio: {
+      type: String,
+      default: "",
+    },
+    company: {
+      type: String,
+      default: "",
+    },
+    location: {
+      type: String,
+      default: "",
+    },
+    website: {
+      type: String,
+      default: "",
+    },
+    twitter: {
+      type: String,
+      default: "",
+    },
+    themePreference: {
+      type: String,
+      default: "dark",
+    },
     repositories: [
       {
         default: [],
