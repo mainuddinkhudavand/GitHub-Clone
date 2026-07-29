@@ -1,0 +1,296 @@
+.repo-detail-page {
+  min-height: 100vh;
+  background-color: #0d1117;
+  color: #c9d1d9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: #58a6ff;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.repo-header {
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding-top: 20px;
+}
+
+.repo-header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.repo-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.repo-title-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+}
+
+.repo-icon {
+  color: #8b949e;
+}
+
+.repo-owner-link {
+  color: #58a6ff;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.repo-owner-link:hover {
+  text-decoration: underline;
+}
+
+.repo-slash {
+  color: #8b949e;
+}
+
+.repo-name-heading {
+  font-size: 20px;
+  font-weight: 600;
+  color: #58a6ff;
+  margin: 0;
+}
+
+.visibility-badge {
+  font-size: 12px;
+  padding: 2px 7px;
+  border-radius: 12px;
+  font-weight: 500;
+  border: 1px solid #30363d;
+}
+
+.visibility-badge.public {
+  color: #8b949e;
+  background-color: rgba(110, 118, 129, 0.1);
+}
+
+.visibility-badge.private {
+  color: #d29922;
+  border-color: rgba(210, 153, 34, 0.4);
+  background-color: rgba(210, 153, 34, 0.1);
+}
+
+.repo-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-group {
+  display: inline-flex;
+  border-radius: 6px;
+  border: 1px solid #30363d;
+  overflow: hidden;
+  background-color: #21262d;
+}
+
+.btn-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #c9d1d9;
+  background-color: #21262d;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-sm:hover {
+  background-color: #30363d;
+}
+
+.btn-star.starred {
+  color: #e3b341;
+}
+
+.social-count {
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #c9d1d9;
+  background-color: #161b22;
+  border-left: 1px solid #30363d;
+}
+
+.btn-primary {
+  background-color: #238636;
+  color: #ffffff;
+
+}
+
+.btn-primary:hover {
+  background-color: #2ea043;
+}
+
+.clone-dropdown-wrapper {
+  position: relative;
+}
+
+.btn-code-clone {
+  border-radius: 6px;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+}
+
+.caret {
+  font-size: 9px;
+  margin-left: 2px;
+}
+
+.clone-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 6px;
+  width: 320px;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.clone-tabs {
+  display: flex;
+  border-bottom: 1px solid #30363d;
+  margin-bottom: 10px;
+}
+
+.clone-tabs button {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #8b949e;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.clone-tabs button.active {
+  color: #58a6ff;
+  border-bottom-color: #f78166;
+  font-weight: 600;
+}
+
+.clone-input-box {
+  display: flex;
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.clone-input-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #c9d1d9;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.clone-input-box button {
+  background: #21262d;
+  border: none;
+  border-left: 1px solid #30363d;
+  color: #c9d1d9;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.clone-input-box button:hover {
+  background: #30363d;
+}
+
+.clone-dropdown-footer {
+  margin-top: 8px;
+  color: #8b949e;
+}
+
+.repo-description-text {
+  font-size: 14px;
+  color: #8b949e;
+  margin-bottom: 16px;
+}
+
+.repo-nav-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
+
+.repo-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #8b949e;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.repo-nav-item:hover {
+  color: #c9d1d9;
+  border-bottom-color: #8b949e;
+}
+
+.repo-nav-item.active {
+  color: #f0f6fc;
+  font-weight: 600;
+  border-bottom-color: #f78166;
+}
+
+.tab-counter {
+  background-color: rgba(110, 118, 129, 0.4);
+  color: #c9d1d9;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.repo-tab-content-container {
+  max-width: 1280px;
+  margin: 24px auto;
+  padding: 0 24px;
+}
