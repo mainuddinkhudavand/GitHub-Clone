@@ -13,6 +13,11 @@ import Settings from "./components/user/Settings";
 import { useAuth } from "./authContext";
 
 import RepoDetail from "./components/repo/RepoDetail";
+import Explore from "./components/explore/Explore";
+import Gists from "./components/gists/Gists";
+import Organizations from "./components/orgs/Organizations";
+import Notifications from "./components/notifications/Notifications";
+import DeveloperAnalytics from "./components/analytics/DeveloperAnalytics";
 
 const ProjectRoutes = () => {
     const { currentUser, setCurrentUser } = useAuth();
@@ -66,6 +71,26 @@ const ProjectRoutes = () => {
         {
             path: "/repo/detail/:id",
             element: <RepoDetail />
+        },
+        {
+            path: "/explore",
+            element: <Explore />
+        },
+        {
+            path: "/gists",
+            element: <Gists />
+        },
+        {
+            path: "/orgs",
+            element: <Organizations />
+        },
+        {
+            path: "/notifications",
+            element: <Notifications />
+        },
+        {
+            path: "/analytics",
+            element: <DeveloperAnalytics />
         },
         {
             path: "/settings",

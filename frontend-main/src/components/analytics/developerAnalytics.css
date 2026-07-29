@@ -1,0 +1,175 @@
+.analytics-page {
+  min-height: 100vh;
+  background-color: #0d1117;
+  color: #c9d1d9;
+}
+
+.analytics-header {
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding: 24px;
+}
+
+.analytics-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.analytics-header-inner h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #f0f6fc;
+}
+
+.analytics-header-inner p {
+  margin: 4px 0 0 0;
+  color: #8b949e;
+  font-size: 14px;
+}
+
+.analytics-main-content {
+  max-width: 1280px;
+  margin: 24px auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.kpi-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.kpi-card {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-title {
+  font-size: 13px;
+  color: #8b949e;
+  font-weight: 500;
+}
+
+.kpi-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f0f6fc;
+  margin: 8px 0;
+}
+
+.kpi-sub {
+  font-size: 12px;
+  color: #8b949e;
+}
+
+.kpi-sub.green { color: #3fb950; }
+.kpi-sub.purple { color: #a371f7; }
+
+.analytics-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .analytics-charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-card {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.chart-card h3 {
+  margin-top: 0;
+  font-size: 16px;
+  color: #f0f6fc;
+}
+
+.lang-bar-container {
+  display: flex;
+  height: 32px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 20px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+
+}
+
+.lang-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lang-bar.js { background-color: #f1e05a; color: black; }
+.lang-bar.ts { background-color: #3178c6; }
+.lang-bar.css { background-color: #563d7c; }
+
+.lang-legend {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #8b949e;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.js-dot { background-color: #f1e05a; }
+.ts-dot { background-color: #3178c6; }
+.css-dot { background-color: #563d7c; }
+
+.sentiment-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.sentiment-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #c9d1d9;
+}
+
+.progress-bg {
+  background-color: #0d1117;
+  border-radius: 4px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+}
+
+.progress-fill.green { background-color: #238636; }
+.progress-fill.blue { background-color: #1f6feb; }
+.progress-fill.purple { background-color: #8957e5; }

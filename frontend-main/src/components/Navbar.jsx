@@ -82,9 +82,11 @@ const Navbar = () => {
 
           <nav className="gh-nav-links">
             <Link to="/" className="gh-nav-item">Dashboard</Link>
-            <Link to="/repo" className="gh-nav-item">Repositories</Link>
-            <Link to="/create" className="gh-nav-item">Issues</Link>
-            <Link to="/create" className="gh-nav-item">Pull requests</Link>
+            <Link to="/explore" className="gh-nav-item">Explore</Link>
+            <Link to="/gists" className="gh-nav-item">Gists</Link>
+            <Link to="/orgs" className="gh-nav-item">Organizations</Link>
+            <Link to="/notifications" className="gh-nav-item">Notifications</Link>
+            <Link to="/analytics" className="gh-nav-item highlight-ai">📊 AI Analytics</Link>
           </nav>
         </div>
 
