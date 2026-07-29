@@ -1,0 +1,162 @@
+.notifications-page {
+  min-height: 100vh;
+  background-color: #0d1117;
+  color: #c9d1d9;
+}
+
+.notif-header {
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding: 24px;
+}
+
+.notif-header-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notif-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notif-title-row h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #f0f6fc;
+}
+
+.unread-pill {
+  background-color: #1f6feb;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.notif-main-content {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notif-tabs-bar {
+  display: flex;
+  gap: 8px;
+}
+
+.tab-btn {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+
+}
+
+.tab-btn.active {
+  background-color: #21262d;
+  color: #f0f6fc;
+  border-color: #8b949e;
+  font-weight: 600;
+}
+
+.notif-list-card {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.notif-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid #21262d;
+
+}
+
+.notif-item-row:last-child {
+  border-bottom: none;
+}
+
+.notif-item-row.unread {
+  background-color: rgba(31, 111, 235, 0.08);
+  border-left: 3px solid #1f6feb;
+}
+
+.notif-icon {
+  font-size: 18px;
+}
+
+.notif-info-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.notif-title-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notif-title-text {
+  font-weight: 600;
+  color: #58a6ff;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.notif-title-text:hover {
+  text-decoration: underline;
+}
+
+.notif-repo-tag {
+  font-size: 11px;
+  background-color: #21262d;
+  color: #8b949e;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.notif-preview-text {
+  margin: 0;
+  font-size: 13px;
+  color: #c9d1d9;
+}
+
+.notif-time-stamp {
+  font-size: 11px;
+  color: #8b949e;
+}
+
+.btn-read-toggle {
+  background: none;
+  border: none;
+  color: #8b949e;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-read-toggle:hover {
+  color: #f0f6fc;
+}
+
+.empty-notif-box {
+  text-align: center;
+  padding: 48px;
+  color: #8b949e;
+}
