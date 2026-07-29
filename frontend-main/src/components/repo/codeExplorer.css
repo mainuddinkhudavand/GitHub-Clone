@@ -1,0 +1,282 @@
+.code-explorer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.explorer-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.branch-selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.branch-btn {
+  border-radius: 6px;
+}
+
+.branch-info-tags {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: #8b949e;
+}
+
+.info-tag strong {
+  color: #f0f6fc;
+}
+
+.explorer-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.breadcrumb-item {
+  color: #58a6ff;
+  cursor: pointer;
+}
+
+.breadcrumb-item:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  color: #8b949e;
+}
+
+.breadcrumb-file {
+  color: #f0f6fc;
+  font-weight: 600;
+}
+
+.latest-commit-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px 6px 0 0;
+  padding: 12px 16px;
+  font-size: 13px;
+}
+
+.commit-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.commit-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.commit-author {
+  color: #f0f6fc;
+}
+
+.commit-msg {
+  color: #8b949e;
+}
+
+.commit-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #8b949e;
+
+}
+
+.commit-hash {
+  font-family: monospace;
+  background: #21262d;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.file-tree-card {
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  overflow: hidden;
+}
+
+.file-tree-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.file-row {
+  border-bottom: 1px solid #21262d;
+}
+
+.file-row:last-child {
+  border-bottom: none;
+}
+
+.file-row:hover {
+  background-color: #161b22;
+}
+
+.file-row td {
+  padding: 10px 16px;
+  font-size: 13px;
+}
+
+.file-icon-cell {
+  width: 24px;
+}
+
+.link-folder, .link-file {
+  color: #c9d1d9;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link-folder:hover, .link-file:hover {
+  color: #58a6ff;
+  text-decoration: underline;
+}
+
+.file-message-cell {
+  color: #8b949e;
+}
+
+.file-time-cell {
+  color: #8b949e;
+  text-align: right;
+
+}
+
+/* File Viewer Card */
+.file-viewer-card {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.file-viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: #21262d;
+  border-bottom: 1px solid #30363d;
+}
+
+.file-name-title {
+  font-weight: 600;
+  color: #f0f6fc;
+  margin-right: 10px;
+}
+
+.file-size-badge {
+  font-size: 12px;
+  color: #8b949e;
+}
+
+.file-actions-right {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-ai-action {
+  background: linear-gradient(135deg, #1f6beb 0%, #8a2be2 100%);
+  color: white;
+  border: none;
+}
+
+.btn-ai-action:hover {
+  opacity: 0.9;
+}
+
+.btn-playground-action {
+  background-color: #238636;
+  color: white;
+  border: none;
+}
+
+.code-content-view {
+  display: flex;
+  background-color: #0d1117;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.line-numbers {
+  padding: 16px 12px;
+  margin: 0;
+  color: #484f58;
+  text-align: right;
+
+  user-select: none;
+  border-right: 1px solid #21262d;
+  display: flex;
+  flex-direction: column;
+}
+
+.code-text {
+  padding: 16px;
+  margin: 0;
+  color: #c9d1d9;
+  flex: 1;
+}
+
+/* Readme Section */
+.readme-section-card {
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  margin-top: 16px;
+}
+
+.readme-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.readme-body {
+  padding: 24px;
+  line-height: 1.6;
+}
+
+.readme-body h1 {
+  font-size: 24px;
+  margin-top: 0;
+  border-bottom: 1px solid #21262d;
+  padding-bottom: 8px;
+}
+
+.readme-body hr {
+  border: none;
+  border-top: 1px solid #21262d;
+  margin: 16px 0;
+}
+
+.readme-body ul {
+  padding-left: 20px;
+}
+
+.readme-body li {
+  margin-bottom: 8px;
+}
