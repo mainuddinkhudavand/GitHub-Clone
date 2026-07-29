@@ -12,6 +12,8 @@ import Settings from "./components/user/Settings";
 // Auth Context
 import { useAuth } from "./authContext";
 
+import RepoDetail from "./components/repo/RepoDetail";
+
 const ProjectRoutes = () => {
     const { currentUser, setCurrentUser } = useAuth();
     const navigate = useNavigate();
@@ -56,6 +58,14 @@ const ProjectRoutes = () => {
         {
             path: "/repo",
             element: <Dashboard />
+        },
+        {
+            path: "/repo/:id",
+            element: <RepoDetail />
+        },
+        {
+            path: "/repo/detail/:id",
+            element: <RepoDetail />
         },
         {
             path: "/settings",

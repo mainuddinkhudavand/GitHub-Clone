@@ -124,7 +124,9 @@ const Dashboard = () => {
               repositories.slice(0, 8).map((repo) => (
                 <li key={repo._id || repo.name} className="sidebar-repo-item">
                   <span className="repo-icon">📘</span>
-                  <span className="repo-item-name">{user.username} / {repo.name}</span>
+                  <Link to={`/repo/${repo._id || 'demo'}`} className="repo-item-name-link">
+                    {user.username} / {repo.name}
+                  </Link>
                 </li>
               ))
             )}
@@ -135,10 +137,10 @@ const Dashboard = () => {
           <h4>Explore Repositories</h4>
           <div className="explore-list">
             {suggestedRepositories.slice(0, 4).map((sRepo) => (
-              <div key={sRepo._id || sRepo.name} className="explore-card">
+              <Link key={sRepo._id || sRepo.name} to={`/repo/${sRepo._id || 'demo'}`} className="explore-card">
                 <strong>{sRepo.name}</strong>
                 <p>{sRepo.description || "Public repository"}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </aside>
@@ -178,7 +180,9 @@ const Dashboard = () => {
                   <div className="card-top">
                     <div className="card-title-row">
                       <span className="repo-book-icon">📘</span>
-                      <strong className="card-repo-title">{user.username} / {repo.name}</strong>
+                      <Link to={`/repo/${repo._id || 'demo'}`} className="card-repo-title-link">
+                        {user.username} / {repo.name}
+                      </Link>
                       <span className={`badge-vis ${repo.visibility ? "pub" : "priv"}`}>
                         {repo.visibility ? "Public" : "Private"}
                       </span>
