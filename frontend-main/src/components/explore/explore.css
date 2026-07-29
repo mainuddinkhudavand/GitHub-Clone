@@ -1,0 +1,153 @@
+.explore-page-container {
+  min-height: 100vh;
+  background-color: #0d1117;
+  color: #c9d1d9;
+}
+
+.explore-hero-header {
+  background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+  border-bottom: 1px solid #30363d;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.explore-hero-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.explore-hero-inner h1 {
+  font-size: 32px;
+  color: #f0f6fc;
+  margin-top: 0;
+}
+
+.explore-hero-inner p {
+  color: #8b949e;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.explore-search-bar input {
+  width: 100%;
+  max-width: 600px;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 24px;
+  padding: 12px 20px;
+  font-size: 15px;
+  color: #c9d1d9;
+  outline: none;
+}
+
+.explore-search-bar input:focus {
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+}
+
+.explore-main-content {
+  max-width: 1280px;
+  margin: 32px auto;
+  padding: 0 24px;
+}
+
+.topic-pills-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.topic-pill {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 13px;
+  cursor: pointer;
+
+}
+
+.topic-pill.active {
+  background-color: #1f6feb;
+  color: white;
+  border-color: #1f6feb;
+}
+
+.explore-repos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.explore-repo-card {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-header-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.explore-repo-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.explore-repo-title:hover {
+  text-decoration: underline;
+}
+
+.explore-repo-desc {
+  font-size: 13px;
+  color: #8b949e;
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.explore-topics-list {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.topic-badge {
+  font-size: 11px;
+  background-color: rgba(56, 139, 253, 0.15);
+  color: #58a6ff;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.explore-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: #8b949e;
+  border-top: 1px solid #21262d;
+  padding-top: 12px;
+}
+
+.lang-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lang-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
