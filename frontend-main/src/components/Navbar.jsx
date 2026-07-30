@@ -9,6 +9,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { setCurrentUser } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [user, setUser] = useState({ username: "User", avatarUrl: "" });
   const dropdownRef = useRef(null);
@@ -55,6 +56,7 @@ const Navbar = () => {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/?search=${encodeURIComponent(searchQuery)}`);
+      setMobileMenuOpen(false);
     }
   };
 
@@ -63,6 +65,20 @@ const Navbar = () => {
       <div className="gh-header-container">
         {/* Left Section: Brand & Search */}
         <div className="gh-header-left">
+          <button
+            className="gh-mobile-toggle-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation"
+          >
+            <svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
+              {mobileMenuOpen ? (
+                <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/>
+              ) : (
+                <path d="M1 2.75A.75.75 0 0 1 1.75 2h12.5a.75.75 0 0 1 0 1.5H1.75A.75.75 0 0 1 1 2.75zm0 5A.75.75 0 0 1 1.75 7h12.5a.75.75 0 0 1 0 1.5H1.75A.75.75 0 0 1 1 7.75zm0 5a.75.75 0 0 1 .75-.75h12.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1-.75-.75z"/>
+              )}
+            </svg>
+          </button>
+
           <Link to="/" className="gh-logo-link" title="GitHub Dashboard">
             <img src={logo} alt="GitHub" className="gh-logo" />
           </Link>
@@ -75,7 +91,7 @@ const Navbar = () => {
               <input
                 type="text"
                 className="gh-search-input"
-                placeholder="Type '/' to search repositories..."
+                placeholder="Type '/' to search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -83,13 +99,13 @@ const Navbar = () => {
             </div>
           </form>
 
-          <nav className="gh-nav-links">
-            <Link to="/" className="gh-nav-item">Dashboard</Link>
-            <Link to="/explore" className="gh-nav-item">Explore</Link>
-            <Link to="/gists" className="gh-nav-item">Gists</Link>
-            <Link to="/orgs" className="gh-nav-item">Organizations</Link>
-            <Link to="/notifications" className="gh-nav-item">Notifications</Link>
-            <Link to="/analytics" className="gh-nav-item highlight-ai">📊 AI Analytics</Link>
+          <nav className={`gh-nav-links ${mobileMenuOpen ? "mobile-open" : ""}`}>
+            <Link to="/" className="gh-nav-item" onClick={() => setMobileMenuOpen(false)}>Dashboard</Link>
+            <Link to="/explore" className="gh-nav-item" onClick={() => setMobileMenuOpen(false)}>Explore</Link>
+            <Link to="/gists" className="gh-nav-item" onClick={() => setMobileMenuOpen(false)}>Gists</Link>
+            <Link to="/orgs" className="gh-nav-item" onClick={() => setMobileMenuOpen(false)}>Organizations</Link>
+            <Link to="/notifications" className="gh-nav-item" onClick={() => setMobileMenuOpen(false)}>Notifications</Link>
+            <Link to="/analytics" className="gh-nav-item highlight-ai" onClick={() => setMobileMenuOpen(false)}>📊 AI Analytics</Link>
           </nav>
         </div>
 

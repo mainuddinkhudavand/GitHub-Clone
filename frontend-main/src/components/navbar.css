@@ -231,3 +231,79 @@
 .logout-item:hover {
   background-color: #da3633;
 }
+
+/* Mobile Responsive Controls */
+.gh-mobile-toggle-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.gh-mobile-toggle-btn:hover {
+  background-color: #21262d;
+}
+
+@media (max-width: 900px) {
+  .gh-mobile-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gh-header-container {
+    flex-wrap: wrap;
+  }
+
+  .gh-header-left {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .gh-search-form {
+    max-width: 100%;
+    flex: 1;
+  }
+
+  .gh-nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 0 4px 0;
+    gap: 12px;
+    border-top: 1px solid #30363d;
+    margin-top: 8px;
+  }
+
+  .gh-nav-links.mobile-open {
+    display: flex;
+  }
+}
+
+@media (max-width: 576px) {
+  .gh-header {
+    padding: 8px 12px;
+  }
+
+  .gh-search-wrapper {
+    padding: 4px 8px;
+  }
+
+  .gh-search-badge {
+    display: none;
+  }
+
+  .gh-btn-create span {
+    display: none;
+  }
+
+  .gh-btn-create {
+    padding: 6px 8px;
+  }
+}
+
