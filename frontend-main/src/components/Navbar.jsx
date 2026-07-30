@@ -19,7 +19,10 @@ const Navbar = () => {
     const fetchUser = async () => {
       if (userId) {
         try {
-          const res = await axios.get(`http://localhost:3002/userProfile/${userId}`);
+          const token = localStorage.getItem("token");
+          const res = await axios.get(`http://localhost:3002/userProfile/${userId}`, {
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
+          });
           if (res.data) {
             setUser(res.data);
           }

@@ -19,7 +19,10 @@ const CreateRepo = () => {
 
   useEffect(() => {
     if (userId) {
-      axios.get(`http://localhost:3002/userProfile/${userId}`)
+      const token = localStorage.getItem("token");
+      axios.get(`http://localhost:3002/userProfile/${userId}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      })
         .then((res) => { if (res.data) setUser(res.data); })
         .catch((err) => console.error(err));
     }
@@ -41,6 +44,7 @@ const CreateRepo = () => {
 
     try {
       setLoading(true);
+      const token = localStorage.getItem("token");
       const res = await axios.post("http://localhost:3002/repo/create", {
         owner: userId,
         name: name.trim(),
@@ -49,6 +53,8 @@ const CreateRepo = () => {
         readme: addReadme,
         gitignore: gitignoreTemplate,
         license: license,
+      }, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
 
       setLoading(false);
