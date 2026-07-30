@@ -9,19 +9,30 @@
 
 @media (max-width: 1024px) {
   .gh-dashboard-grid {
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 240px 1fr;
+    gap: 16px;
+    padding: 0 16px;
   }
   .gh-dash-right {
-    display: none;
+    display: flex;
   }
 }
 
 @media (max-width: 768px) {
   .gh-dashboard-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 12px;
+    margin: 12px auto;
   }
   .gh-dash-left {
-    display: none;
+    order: 2;
+  }
+  .gh-dash-main {
+    order: 1;
+  }
+  .gh-dash-right {
+    order: 3;
   }
 }
 
