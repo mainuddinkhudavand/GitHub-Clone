@@ -294,3 +294,27 @@
   margin: 24px auto;
   padding: 0 24px;
 }
+
+@media (max-width: 768px) {
+  .repo-header-container {
+    padding: 0 12px;
+  }
+  .repo-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .repo-actions-right {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .repo-nav-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .repo-tab-content-container {
+    padding: 0 12px;
+    margin: 16px auto;
+  }
+}
+

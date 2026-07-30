@@ -280,3 +280,27 @@
 .readme-body li {
   margin-bottom: 8px;
 }
+
+@media (max-width: 768px) {
+  .explorer-top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .latest-commit-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .file-message-cell {
+    display: none;
+  }
+  .file-viewer-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .file-actions-right {
+    flex-wrap: wrap;
+  }
+}
+
