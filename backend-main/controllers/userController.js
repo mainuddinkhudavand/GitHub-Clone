@@ -48,11 +48,8 @@ async function signup(req, res) {
     const result = await usersCollection.insertOne(newUser);
     const userId = result.insertedId;
 
-    const token = jwt.sign(
-      { id: userId },
-      process.env.JWT_SECRET_KEY,
-      { expiresIn: "1h" }
-    );
+    const secret = process.env.JWT_SECRET_KEY || "default_jwt_secret_key_change_me_in_prod";
+    const token = jwt.sign({ id: userId }, secret, { expiresIn: "1h" });
     res.status(201).json({ token, userId });
   } catch (err) {
     console.error("Error during signup : ", err.message);
@@ -81,7 +78,8 @@ async function login(req, res) {
       return res.status(400).json({ message: "Invalid credentials!" });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, {
+    const secret = process.env.JWT_SECRET_KEY || "default_jwt_secret_key_change_me_in_prod";
+    const token = jwt.sign({ id: user._id }, secret, {
       expiresIn: "1h",
     });
     res.json({ token, userId: user._id });
@@ -97,7 +95,7 @@ async function getAllUsers(req, res) {
     const db = client.db();
     const usersCollection = db.collection("users");
 
-    const users = await usersCollection.find({}).toArray();
+    const users = await usersCollection.find({}, { projection: { password: 0 } }).toArray();
     res.json(users);
   } catch (err) {
     console.error("Error during fetching : ", err.message);
@@ -117,9 +115,10 @@ async function getUserProfile(req, res) {
     const db = client.db();
     const usersCollection = db.collection("users");
 
-    const user = await usersCollection.findOne({
-      _id: new ObjectId(currentID),
-    });
+    const user = await usersCollection.findOne(
+      { _id: new ObjectId(currentID) },
+      { projection: { password: 0 } }
+    );
 
     if (!user) {
       return res.status(404).json({ message: "User not found!" });
@@ -176,7 +175,7 @@ async function updateUserProfile(req, res) {
     const result = await usersCollection.findOneAndUpdate(
       { _id: new ObjectId(currentID) },
       { $set: updateFields },
-      { returnDocument: "after" }
+      { returnDocument: "after", projection: { password: 0 } }
     );
 
     const updatedUser = result.value !== undefined ? result.value : result;
@@ -184,6 +183,7 @@ async function updateUserProfile(req, res) {
       return res.status(404).json({ message: "User not found!" });
     }
 
+    delete updatedUser.password;
     res.send(updatedUser);
   } catch (err) {
     console.error("Error during updating : ", err.message);
