@@ -5,6 +5,7 @@ async function addRepo(filePath) {
   const repoPath = path.resolve(process.cwd(), ".apnaGit");
   const stagingPath = path.join(repoPath, "staging");
 
+  try {
     const fileName = path.basename(filePath);
     const resolvedPath = path.resolve(process.cwd(), filePath);
 
