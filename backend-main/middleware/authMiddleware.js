@@ -1,21 +1,29 @@
 const jwt = require("jsonwebtoken");
 
 function authMiddleware(req, res, next) {
-  const token =
-    req.header("x-auth-token") ||
-    req.header("Authorization")?.replace("Bearer ", "");
+  const authHeader = req.header("Authorization") || req.header("x-auth-token");
+
+  if (!authHeader) {
+    return res.status(401).json({ message: "No token, authorization denied" });
+  }
+
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.slice(7).trim()
+    : authHeader.trim();
 
   if (!token) {
     return res.status(401).json({ message: "No token, authorization denied" });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const secret = process.env.JWT_SECRET_KEY || "default_jwt_secret_key_change_me_in_prod";
+    const decoded = jwt.verify(token, secret);
     req.user = decoded;
     next();
   } catch (err) {
-    res.status(401).json({ message: "Token is not valid" });
+    return res.status(401).json({ message: "Token is not valid" });
   }
 }
 
 module.exports = authMiddleware;
+
