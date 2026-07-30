@@ -23,9 +23,42 @@ async function startServer() {
   const app = express();
   const port = process.env.PORT || 3002;
 
-  app.use(cors({ origin: "*" }));
-  app.use(bodyParser.json());
-  app.use(express.json());
+  // Security Headers Middleware
+  app.use((req, res, next) => {
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("X-Frame-Options", "DENY");
+    res.setHeader("X-XSS-Protection", "1; mode=block");
+    res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+    next();
+  });
+
+  // Rate Limiting Middleware (Brute Force & DoS Protection)
+  const rateLimitMap = new Map();
+  app.use((req, res, next) => {
+    const ip = req.ip || req.connection.remoteAddress || "global";
+    const now = Date.now();
+    const windowMs = 15 * 60 * 1000;
+    const maxRequests = 300;
+
+    const record = rateLimitMap.get(ip) || { count: 0, resetTime: now + windowMs };
+    if (now > record.resetTime) {
+      record.count = 1;
+      record.resetTime = now + windowMs;
+    } else {
+      record.count++;
+    }
+    rateLimitMap.set(ip, record);
+
+    if (record.count > maxRequests) {
+      return res.status(429).json({ message: "Too many requests, please try again later." });
+    }
+    next();
+  });
+
+  app.use(cors({ origin: process.env.CORS_ORIGIN || "*" }));
+  app.use(bodyParser.json({ limit: "10mb" }));
+  app.use(express.json({ limit: "10mb" }));
 
   let mongoURI = process.env.MONGODB_URI;
 
