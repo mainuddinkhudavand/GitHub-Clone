@@ -130,6 +130,10 @@ async function updateRepositoryById(req, res) {
       return res.status(404).json({ error: "Repository not found!" });
     }
 
+    if (req.user && repository.owner && repository.owner.toString() !== req.user.id.toString()) {
+      return res.status(403).json({ error: "Forbidden: You do not own this repository!" });
+    }
+
     if (content !== undefined) {
       repository.content.push(content);
     }
@@ -162,6 +166,10 @@ async function toggleVisibilityById(req, res) {
       return res.status(404).json({ error: "Repository not found!" });
     }
 
+    if (req.user && repository.owner && repository.owner.toString() !== req.user.id.toString()) {
+      return res.status(403).json({ error: "Forbidden: You do not own this repository!" });
+    }
+
     repository.visibility = !repository.visibility;
 
     const updatedRepository = await repository.save();
@@ -184,10 +192,16 @@ async function deleteRepositoryById(req, res) {
   }
 
   try {
-    const repository = await Repository.findByIdAndDelete(id);
+    const repository = await Repository.findById(id);
     if (!repository) {
       return res.status(404).json({ error: "Repository not found!" });
     }
+
+    if (req.user && repository.owner && repository.owner.toString() !== req.user.id.toString()) {
+      return res.status(403).json({ error: "Forbidden: You do not own this repository!" });
+    }
+
+    await Repository.findByIdAndDelete(id);
 
     res.json({ message: "Repository deleted successfully!" });
   } catch (err) {
