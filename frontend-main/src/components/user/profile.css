@@ -64,8 +64,42 @@
 }
 
 @media (max-width: 768px) {
+  .gh-tabs-header {
+    padding: 0 12px;
+  }
+  .gh-tabs-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
   .gh-profile-layout {
     grid-template-columns: 1fr;
+    padding: 0 12px;
+    margin: 16px auto;
+    gap: 20px;
+  }
+  .gh-avatar-container {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+  }
+  .gh-profile-avatar-placeholder {
+    font-size: 50px;
+  }
+  .gh-profile-names {
+    text-align: center;
+  }
+  .gh-profile-actions {
+    justify-content: center;
+  }
+  .gh-profile-social-stats {
+    justify-content: center;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .heatmap-card {
+    overflow-x: auto;
   }
 }
 
